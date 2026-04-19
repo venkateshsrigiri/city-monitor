@@ -1,0 +1,6 @@
+target/
+node_modules/
+traffic-frontend/node_modules/
+*.class
+*.jar
+.env

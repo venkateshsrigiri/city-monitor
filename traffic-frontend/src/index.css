@@ -1,0 +1,214 @@
+:root {
+  --bg-void: #04070f;
+  --bg-base: #080d18;
+  --bg-surface: #0d1526;
+  --bg-elevated: #111d35;
+  --bg-card: #131f38;
+  --bg-hover: #182440;
+
+  --border-dim: rgba(255,255,255,0.05);
+  --border-mid: rgba(255,255,255,0.10);
+  --border-bright: rgba(255,255,255,0.18);
+
+  --amber: #f59e0b;
+  --amber-glow: rgba(245,158,11,0.15);
+  --amber-dim: #92710a;
+  --cyan: #06b6d4;
+  --cyan-glow: rgba(6,182,212,0.12);
+  --green: #10b981;
+  --green-glow: rgba(16,185,129,0.12);
+  --red: #ef4444;
+  --red-glow: rgba(239,68,68,0.15);
+  --red-deep: #7f1d1d;
+  --orange: #f97316;
+  --orange-glow: rgba(249,115,22,0.12);
+  --blue: #3b82f6;
+  --blue-glow: rgba(59,130,246,0.12);
+  --slate: #94a3b8;
+  --slate-dim: #475569;
+
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-dim: #4a5568;
+
+  /*
+   * Font stack: no external CDN — uses fonts available on macOS, Windows, Linux.
+   * Mono: Menlo / Consolas / DejaVu Sans Mono / monospace
+   * Heading: system-ui with letter-spacing does the heavy lifting
+   * Body: system-ui
+   */
+  --text-mono: 'Menlo', 'Consolas', 'DejaVu Sans Mono', 'Courier New', monospace;
+  --text-heading: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --text-body: system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --severity-low: #10b981;
+  --severity-medium: #f59e0b;
+  --severity-high: #f97316;
+  --severity-critical: #ef4444;
+
+  --status-reported: #3b82f6;
+  --status-inprogress: #f59e0b;
+  --status-resolved: #10b981;
+  --status-dismissed: #475569;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.3);
+  --shadow-glow-amber: 0 0 20px rgba(245,158,11,0.2);
+  --shadow-glow-cyan: 0 0 20px rgba(6,182,212,0.15);
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-elevated) var(--bg-base);
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--bg-elevated); border-radius: 3px; }
+
+body {
+  font-family: var(--text-body);
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Subtle grid texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(6,182,212,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6,182,212,0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 28px 24px;
+}
+
+/* Utility */
+.mono { font-family: var(--text-mono); }
+.heading { font-family: var(--text-heading); }
+
+/* Status pill */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-family: var(--text-mono);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.status-pill.reported   { background: rgba(59,130,246,0.15); color: var(--blue); border: 1px solid rgba(59,130,246,0.3); }
+.status-pill.in_progress { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
+.status-pill.resolved   { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+.status-pill.dismissed  { background: rgba(71,85,105,0.2); color: var(--slate); border: 1px solid rgba(71,85,105,0.3); }
+
+/* Severity badge */
+.sev-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 10px;
+  font-family: var(--text-mono);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.sev-badge.low      { background: rgba(16,185,129,0.15);  color: var(--severity-low);      border: 1px solid rgba(16,185,129,0.3); }
+.sev-badge.medium   { background: rgba(245,158,11,0.15);  color: var(--severity-medium);   border: 1px solid rgba(245,158,11,0.3); }
+.sev-badge.high     { background: rgba(249,115,22,0.15);  color: var(--severity-high);     border: 1px solid rgba(249,115,22,0.3); }
+.sev-badge.critical { background: rgba(239,68,68,0.15);   color: var(--severity-critical); border: 1px solid rgba(239,68,68,0.3); }
+
+.loading-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  font-family: var(--text-mono);
+  color: var(--cyan);
+  font-size: 14px;
+  letter-spacing: 0.15em;
+}
+
+.error-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  font-family: var(--text-mono);
+  color: var(--red);
+  font-size: 13px;
+}
+
+/* Shared page header classes (used across Dashboard, MapView, SearchView, EventStream, AdminPanel) */
+.dash-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--cyan);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-family: var(--text-mono);
+}
+
+.dash-title {
+  font-family: var(--text-heading);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.03em;
+}
+
+/* Shared filter label / select used in multiple pages */
+.filter-label {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: var(--text-mono);
+}
+
+.filter-select {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--text-mono);
+  font-size: 11px;
+  padding: 7px 12px;
+  cursor: pointer;
+  outline: none;
+  letter-spacing: 0.05em;
+  transition: border-color 0.12s;
+  min-width: 130px;
+}
+
+.filter-select:focus {
+  border-color: var(--cyan);
+}

@@ -1,0 +1,61 @@
+type Query{
+    getAllIncidents:[Incident]
+    getIncidentById(id:ID!):Incident
+    getIncidentByType(type:IncidentType!):[Incident]
+    getIncidentByStatus(status:IncidentStatus!):[Incident]
+
+}
+
+type Mutation{
+    createIncident(input: IncidentInput!): Incident
+    updateIncidentStatus(id: ID!, status: IncidentStatus!): Incident
+    deleteIncident(id: ID!): String
+}
+
+type Incident {
+    id: ID
+    title: String
+    description: String
+    incidentType: IncidentType
+    status: IncidentStatus
+    severity: Severity
+    latitude: Float
+    longitude: Float
+    location: String
+    reportedBy: String
+    createdAt: String
+    updatedAt: String
+}
+
+input IncidentInput {
+    title: String!
+    description: String!
+    incidentType: IncidentType!
+    severity: Severity!
+    latitude: Float!
+    longitude: Float!
+    location: String!
+}
+
+enum IncidentType {
+    ACCIDENT
+    FLOOD
+    FIRE
+    ROADBLOCK
+    CONSTRUCTION
+    CONGESTION
+}
+
+enum IncidentStatus {
+    REPORTED
+    IN_PROGRESS
+    RESOLVED
+    DISMISSED
+}
+
+enum Severity {
+    LOW
+    MEDIUM
+    HIGH
+    CRITICAL
+}
