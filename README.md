@@ -19,47 +19,7 @@ Screenshots
 
 
 
-Tech Stack
-Backend
-LayerTechnologyFrameworkSpring Boot 3, 
-Java 21
-Primary DBPostgreSQL (incident storage)
-Event StoreMongoDB (Kafka event history)
-CacheRedis (incident response caching)
-Message BrokerApache Kafka (event-driven updates)
-Search EngineElasticsearch (full-text search)
-APIREST + GraphQL (Spring GraphQL)
-SecuritySpring SecurityRate
-LimitingBucket4j
-DocsSwagger / OpenAPI 3
-ObservabilitySpring Actuator + Prometheus metricsContainerization
-Docker + Docker Compose
-Frontend
-LayerTechnologyFrameworkReact 18 + ViteState / FetchingTanStack Query v5RoutingReact Router v6ChartsRechartsMapsLeaflet (dark CartoDB tiles + OpenStreetMap geocoding)HTTPAxiosStylingPure CSS with CSS custom properties
 
-Architecture
-┌─────────────────────────────────────────────────────┐
-│                   React Frontend                     │
-│  Dashboard · Map · ES Search · Event Stream · Admin  │
-└───────────────────┬─────────────────────────────────┘
-                    │ REST / GraphQL
-┌───────────────────▼─────────────────────────────────┐
-│              Spring Boot (port 8081)                 │
-│                                                      │
-│  IncidentController   (REST CRUD)                    │
-│  IncidentGraphQlController  (GraphQL)                │
-│  IncidentSearchController   (Elasticsearch)          │
-│  IncidentEventController    (MongoDB events)         │
-│  GeocodingController        (Nominatim proxy)        │
-└──┬──────────┬──────────┬──────────┬─────────────────┘
-   │          │          │          │
-   ▼          ▼          ▼          ▼
-PostgreSQL  Redis     Kafka      Elasticsearch
-(incidents) (cache)  (events)   (search index)
-                        │
-                        ▼
-                     MongoDB
-                  (event history)
 Event Flow
 When an incident is created or updated:
 
