@@ -114,16 +114,7 @@ Filter by status and severity
 Delete incidents
 
 
-API Reference
-REST Endpoints
-MethodEndpointDescriptionGET/api/incidentsGet all incidentsPOST/api/incidentsCreate incidentGET/api/incidents/{id}Get by IDPUT/api/incidents/{id}/statusUpdate statusDELETE/api/incidents/{id}Delete incidentGET/api/incidents/search?keyword=Elasticsearch full-textGET/api/incidents/search/location?location=Search by locationGET/api/incidents/search/severity?severity=Search by severityGET/api/events/recentRecent Kafka events from MongoDBGET/api/events/incident/{id}Event history for an incidentGET/api/geocode?location=Geocode location name to coordinates
-GraphQL
-Available at /graphql · GraphiQL IDE at /graphiql
-graphql# Queries
-getAllIncidents: [Incident]
-getIncidentById(id: ID!): Incident
-getIncidentByType(type: IncidentType!): [Incident]
-getIncidentByStatus(status: IncidentStatus!): [Incident]
+
 
 # Mutations
 createIncident(input: IncidentInput!): Incident
@@ -169,30 +160,7 @@ Types: ACCIDENT · FLOOD · FIRE · ROADBLOCK · CONSTRUCTION · CONGESTION
 Severities: LOW · MEDIUM · HIGH · CRITICAL
 Statuses: REPORTED → IN_PROGRESS → RESOLVED · DISMISSED
 
-Project Structure
-traffic/
-├── src/main/java/com/smart/traffic/
-│   ├── controller/          # REST + GraphQL + Search + Events + Geocoding
-│   ├── service/             # Business logic + Elasticsearch service
-│   ├── kafka/               # Producer, Consumer, Event documents
-│   ├── model/               # JPA entities
-│   ├── dto/                 # Request/Response DTOs
-│   ├── repository/          # PostgreSQL + MongoDB repositories
-│   ├── elasticsearch/       # ES document + repository
-│   ├── config/              # Redis, Kafka, Security, Rate limiting
-│   └── exception/           # Global exception handler
-├── src/main/resources/
-│   ├── application.yml          # Local config
-│   ├── application-docker.yml   # Docker config
-│   └── graphql/schema.graphqls  # GraphQL schema
-├── docker-compose.yml
-├── Dockerfile
-└── traffic-frontend/
-    ├── src/
-    │   ├── api/             # incidentApi.js (REST + GraphQL + Health)
-    │   ├── components/      # Navbar, IncidentCard, StatsCard, SearchBar
-    │   └── pages/           # Dashboard, MapView, SearchView, EventStream, AdminPanel
-    └── package.json
+
 
 
 Author
